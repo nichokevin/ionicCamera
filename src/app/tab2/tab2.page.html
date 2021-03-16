@@ -16,4 +16,11 @@
       Nicholas Kevin - c14180026
     </ion-card-content>
   </ion-card>
+  <ion-item>
+    <ion-label position="floating">Tebak angka (1-10)</ion-label>
+    <ion-input type="text" [(ngModel)]="tebak"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="quest()" [disabled]="!isenabled" >Tebak</ion-button>
+  {{hasil}}
+  <img [src]="src" ngShow="hasil == true">
 </ion-content>
