@@ -22,11 +22,13 @@ export class FotoService {
     const Foto = await Camera.getPhoto ({
       resultType : CameraResultType.Uri,
       source : CameraSource.Camera,
-      quality:100
+      quality:100,
+      allowEditing: true
     });
-    console.log(Foto);
+    console.log('foto', Foto)
 
     const fileFoto = await this.simpanFoto(Foto);
+    console.log('a', fileFoto);
     this.dataFoto.unshift(fileFoto);
 
     Storage.set({
@@ -39,12 +41,15 @@ export class FotoService {
     const base64Data = await this.readAsBase64(foto);
 
     const namaFile = new Date().getTime()+'.jpeg';
+    console.log('nama', namaFile);
     const simpanFile = await Filesystem.writeFile({
       path : namaFile,
       data : base64Data,
       directory : FilesystemDirectory.Data
     })
     
+    console.log('1',simpanFile.uri);
+
     const response = await fetch(foto.webPath);
     const blob = await response.blob();
     const dataFoto = new File([blob],foto.path, {
@@ -86,6 +91,7 @@ export class FotoService {
     reader.onload = () => {
       resolve(reader.result);
     }
+    reader.readAsDataURL(blob);
   });
 
   public async loadFoto(){
