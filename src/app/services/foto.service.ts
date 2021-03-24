@@ -104,7 +104,7 @@ export class FotoService {
           path : foto.filePath,
           directory : FilesystemDirectory.Data
         });
-        foto.webviewPath = `data:image/jpeg;base64,$(readFile.data)`;
+        foto.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
 
         const response = await fetch(foto.webviewPath);
         const blob = await response.blob();
